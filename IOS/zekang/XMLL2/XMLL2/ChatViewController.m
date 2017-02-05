@@ -9,6 +9,7 @@
 #import "ChatViewController.h"
 #import "XMPPStreamManager.h"
 #import "ChatToFriendViewController.h"
+#import "AddFriendTableViewController.h"
 @interface ChatViewController ()
 
 @end
@@ -17,10 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
-    
-
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 
@@ -49,6 +47,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){
+        //添加好友的cell
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"add"];
         cell.imageView.image = [UIImage imageNamed:@"新的朋友"];
         cell.imageView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
@@ -69,6 +68,10 @@
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        AddFriendTableViewController *addVC = [[AddFriendTableViewController alloc]init];
+        [self.navigationController pushViewController:addVC animated:YES];
+    }else{
     ChatToFriendViewController *chatVC = [[ChatToFriendViewController alloc]init];
     NSString *str = [[XMPPStreamManager sharedManager].indexDic allKeys][indexPath.section - 1];
     NSArray *arr = [[XMPPStreamManager sharedManager].indexDic[str] copy];
@@ -76,9 +79,12 @@
     chatVC.title =arr[indexPath.row];
     [XMPPStreamManager sharedManager].chatJID = arr[indexPath.row];
     [self.navigationController pushViewController:chatVC animated:YES];
+    }
 }
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
+    //一个紧急的补救chat好友页面出现不全的方法
+    [self.tableView reloadData];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section== 0) {

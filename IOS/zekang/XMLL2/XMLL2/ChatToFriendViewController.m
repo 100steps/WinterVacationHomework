@@ -31,8 +31,10 @@
     
     self.inputView.inputTextView.returnKeyType = UIReturnKeyDone;
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    button.frame = CGRectMake(310, 0, 10, 10);
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    button.frame = CGRectMake(320 - 45, 5, 40, 40);
+    [button setTitle:@"发送" forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor whiteColor];
     [button addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
     [self.inputView addSubview:button];
     

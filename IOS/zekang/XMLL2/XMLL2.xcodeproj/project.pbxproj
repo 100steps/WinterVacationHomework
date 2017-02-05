@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		670788751E3851DB00D4E82D /* 占位图.png in Resources */ = {isa = PBXBuildFile; fileRef = 670788741E3851DB00D4E82D /* 占位图.png */; };
+		6709CE101E4759EC00D86498 /* searchFriendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6709CE0F1E4759EC00D86498 /* searchFriendVC.m */; };
 		671780871E3B89BE002DC69B /* ChatToFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671780861E3B89BE002DC69B /* ChatToFriendViewController.m */; };
 		6717808A1E3B8DEF002DC69B /* ChatToFirendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 671780891E3B8DEF002DC69B /* ChatToFirendTableViewCell.m */; };
 		6717808D1E3B95DA002DC69B /* 发送气泡.png in Resources */ = {isa = PBXBuildFile; fileRef = 6717808B1E3B95DA002DC69B /* 发送气泡.png */; };
@@ -134,6 +135,8 @@
 
 /* Begin PBXFileReference section */
 		670788741E3851DB00D4E82D /* 占位图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "占位图.png"; sourceTree = "<group>"; };
+		6709CE0E1E4759EC00D86498 /* searchFriendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchFriendVC.h; sourceTree = "<group>"; };
+		6709CE0F1E4759EC00D86498 /* searchFriendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchFriendVC.m; sourceTree = "<group>"; };
 		671780851E3B89BE002DC69B /* ChatToFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToFriendViewController.h; sourceTree = "<group>"; };
 		671780861E3B89BE002DC69B /* ChatToFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToFriendViewController.m; sourceTree = "<group>"; };
 		671780881E3B8DEF002DC69B /* ChatToFirendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToFirendTableViewCell.h; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 				678CCC9E1E3A15890078CD53 /* AddFriendTableViewController.m */,
 				671780851E3B89BE002DC69B /* ChatToFriendViewController.h */,
 				671780861E3B89BE002DC69B /* ChatToFriendViewController.m */,
+				6709CE0E1E4759EC00D86498 /* searchFriendVC.h */,
+				6709CE0F1E4759EC00D86498 /* searchFriendVC.m */,
 			);
 			name = Chat;
 			sourceTree = "<group>";
@@ -1112,6 +1117,7 @@
 				67A9F6131E33BE46002ACB86 /* DDFileLogger.m in Sources */,
 				676013A51E353398009F49A0 /* XMPPStreamManager.m in Sources */,
 				672E30511E34C76400BD06EA /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
+				6709CE101E4759EC00D86498 /* searchFriendVC.m in Sources */,
 				67A9F67C1E33BF51002ACB86 /* XMPPIQ.m in Sources */,
 				67A9F6851E33BF51002ACB86 /* RFImageToDataTransformer.m in Sources */,
 				67A9F6701E33BF51002ACB86 /* XMPPDeprecatedDigestAuthentication.m in Sources */,

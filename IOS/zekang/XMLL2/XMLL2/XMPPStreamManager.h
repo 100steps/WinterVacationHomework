@@ -21,6 +21,7 @@
 @property BOOL registerSucceed;
 @property (nonatomic,strong)XMPPRoster *roster;
 @property (nonatomic,strong)NSMutableDictionary *indexDic;
+@property (nonatomic,strong)NSMutableArray *addArray;
 @property (nonatomic,weak)id<XMPPStreamManagerDelegate>delegate;
 @property (nonatomic,copy)NSString *chatJID;
 + (instancetype)sharedManager;

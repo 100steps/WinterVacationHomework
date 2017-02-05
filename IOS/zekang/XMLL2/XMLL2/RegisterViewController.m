@@ -75,7 +75,7 @@
   [[XMPPStreamManager sharedManager] loginToServerWithJID:myJID andPassword:_registerView.passWord.text andTitle:self.navigationItem.title];
     
     //设置定时器
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(checkConnect) userInfo:nil repeats:NO];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(checkConnect) userInfo:nil repeats:NO];
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNoti:) name:@"connect" object:nil];

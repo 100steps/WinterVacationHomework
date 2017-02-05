@@ -7,9 +7,10 @@
 //
 
 #import "AddFriendTableViewController.h"
-
+#import "XMPPStreamManager.h"
+#import "searchFriendVC.h"
 @interface AddFriendTableViewController ()
-
+@property (nonatomic,copy)NSString *fromStr;
 @end
 
 @implementation AddFriendTableViewController
@@ -17,13 +18,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //右端添加好友item
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDidClick)];
+    self.navigationItem.rightBarButtonItem = item;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
+//在这个方法中，实现主动添加好友页面的跳转
+-(void)addDidClick{
+    searchFriendVC *search = [[searchFriendVC alloc]init];
+    search.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:search animated:YES completion:nil];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -32,25 +41,42 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [XMPPStreamManager sharedManager].addArray.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addCell"];
+    if (cell == nil){
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"addCell"];
+    }
+    [self customCell:cell andIndexPath:indexPath];
+    cell.imageView.image = [UIImage imageNamed:@"占位图"];
+    NSString *str = [NSString stringWithFormat:@"%@想要加你为好友",[XMPPStreamManager sharedManager].addArray[indexPath.row]];
+    NSString *cutStr = [str stringByReplacingOccurrencesOfString:@"@192.168.1.102" withString:@""];
+    cell.textLabel.text = cutStr;
     return cell;
 }
-*/
-
+- (void)customCell:(UITableViewCell *)cell andIndexPath:(NSIndexPath *)indexPath{
+    UIButton *agreeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    agreeButton.frame = CGRectMake(320 - 40, 0, 40, 40);
+    agreeButton.tag = indexPath.row;
+    [agreeButton setTitle:@"同意" forState:UIControlStateNormal];
+    agreeButton.backgroundColor = [UIColor blueColor];
+    [agreeButton setTintColor:[UIColor blackColor]];
+    [agreeButton addTarget:self action:@selector(agreeAddFriend:) forControlEvents:UIControlEventTouchUpInside];
+    [cell addSubview:agreeButton];
+}
+- (void)agreeAddFriend:(UIButton *)sender{
+    //同意添加好友
+    NSString *str = [NSString stringWithFormat:@"%@",[XMPPStreamManager sharedManager].addArray[sender.tag]];
+    XMPPJID *jid = [XMPPJID jidWithString:str];
+    [[XMPPStreamManager sharedManager].roster acceptPresenceSubscriptionRequestFrom:jid andAddToRoster:YES];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -26,8 +26,8 @@ static XMPPStreamManager *manager;
     if (_xmppStream == nil){
         _xmppStream = [[XMPPStream alloc]init];
         //设置属性
-        _xmppStream.hostName = @"127.0.0.1";//heihei.imwork.net
-        _xmppStream.hostPort = 5222;//18420
+        _xmppStream.hostName = @"heihei.imwork.net";//heihei.imwork.net
+        _xmppStream.hostPort = 23771;//23771
         //设置多播代理
         [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     }
@@ -93,11 +93,23 @@ static XMPPStreamManager *manager;
         [_delegate didReceiveMessage:self andChatMessage:message.body];
      }
 }
+- (void)xmppRoster:(XMPPRoster *)sender didReceivePresenceSubscriptionRequest:(XMPPPresence *)presence{
+    if (![self.addArray containsObject:presence.from]){
+    [self.addArray addObject:presence.from];
+    NSLog(@"%@",presence);
+    }
+}
 - (NSMutableDictionary *)indexDic{
     if (_indexDic == nil){
         _indexDic = [[NSMutableDictionary alloc]init];
     }
     return _indexDic;
+}
+- (NSMutableArray *)addArray{
+    if (_addArray == nil){
+        _addArray = [NSMutableArray array];
+    }
+    return  _addArray;
 }
 - (void)xmppRoster:(XMPPRoster *)sender didRecieveRosterItem:(DDXMLElement *)item{
     NSString *jid = [[item attributeForName:@"jid"] stringValue];

@@ -19,7 +19,7 @@ var canvas = document.getElementById("chessboard");
 var clientHeight = document.documentElement.clientHeight;
 var clientWidth = document.documentElement.clientWidth;
 if (clientWidth > clientHeight) {
-	var p = Math.floor(clientHeight * 9 / 200);
+	var p = Math.floor(clientHeight * 9 / 200);//不知道怎么解释p，应该算是一个比例吧
 }
 else {
 	var p = Math.floor(clientWidth * 9 / 200);
@@ -37,14 +37,14 @@ var cxt = canvas.getContext("2d");
 function print(){
 	for (var i = 0; i < 21; i++) {
 		cxt.beginPath();
-		cxt.moveTo(i*p ,  0 );
-		cxt.lineTo(i*p , canvasWidth);
-		cxt.lineTo(i*p ,  0 );
-		cxt.lineTo(i*p , canvasWidth);
-		cxt.moveTo( 0 , i*p);
-		cxt.lineTo(canvasWidth, i*p);
-		cxt.lineTo( 0 , i*p);
-		cxt.lineTo(canvasWidth, i*p);
+		cxt.moveTo(i * p ,  0 );
+		cxt.lineTo(i * p , canvasWidth);
+		cxt.lineTo(i * p ,  0 );
+		cxt.lineTo(i * p , canvasWidth);
+		cxt.moveTo( 0 , i * p);
+		cxt.lineTo(canvasWidth, i * p);
+		cxt.lineTo( 0 , i * p);
+		cxt.lineTo(canvasWidth, i * p);
 		cxt.stroke();
 	}
 }

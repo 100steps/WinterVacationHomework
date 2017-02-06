@@ -2,48 +2,48 @@ html,body{
 	font-size: 16.875px;
 }
 #chessboard_box{
-		/*border: 1px solid #000;*/
-		margin: 2% 3%;
-		position: relative;
-		float: left;
-	}
-	#text_box{
-		/*border: 1px solid #000;*/
-		margin-left: 1%;
-		float: left;
-		width: 40%;
-		height: 60%;
-	}
-	#title_box{
-		width: 35%;
-		height: 12%;
-		font-size: 3rem;
-		text-align: center;
-		float: right;
-		margin: 5% 3%;
-		font-family: 华文彩云;
-		text-shadow: 0.25rem 0.25rem 0.5rem #3E3E3E;
-		/*border: 1px solid #000;*/
-	}
-	#message_box{
-		width: 60%;
-		height: 12%;
-		float: right;
-		margin: 5% 20%;
-		border: 1px solid #000;
-		border-radius: 1rem;
-	    -moz-border-radius: 1rem; /* Old Firefox */
-	}
-	#message{
-		font-size: 1.5rem;
-		text-align: center;
-		margin-top: 1%;
-	}
-	button#save,#read,#new{
-		width: 60%;
-		height: 12%;
-		float: right;
-		margin: 3% 20%;
-		font-size: 1.5rem;
-		text-align: center;
-	}
+	/*border: 1px solid #000;*/
+	margin: 2% 3%;
+	position: relative;
+	float: left;
+}
+#text_box{
+	/*border: 1px solid #000;*/
+	margin-left: 1%;
+	float: left;
+	width: 40%;
+	height: 60%;
+}
+#title_box{
+	width: 35%;
+	height: 12%;
+	font-size: 3rem;
+	text-align: center;
+	float: right;
+	margin: 5% 3%;
+	font-family: 华文彩云;
+	text-shadow: 0.25rem 0.25rem 0.5rem #3E3E3E;
+	/*border: 1px solid #000;*/
+}
+#message_box{
+	width: 60%;
+	height: 12%;
+	float: right;
+	margin: 5% 20%;
+	border: 1px solid #000;
+	border-radius: 1rem;
+    -moz-border-radius: 1rem; /* Old Firefox */
+}
+#message{
+	font-size: 1.5rem;
+	text-align: center;
+	margin-top: 1%;
+}
+button#save,#read,#new{
+	width: 60%;
+	height: 12%;
+	float: right;
+	margin: 3% 20%;
+	font-size: 1.5rem;
+	text-align: center;
+}

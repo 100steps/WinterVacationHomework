@@ -1,0 +1,49 @@
+html,body{
+	font-size: 16.875px;
+}
+#chessboard_box{
+	/*border: 1px solid #000;*/
+	margin: 4% auto auto 2%;
+	position: relative;
+	float: left;
+}
+#text_box{
+	/*border: 1px solid #000;*/
+	float: right;
+	margin-right: 5%;
+	width: 25%;
+	height: 100%;
+}
+#title_box{
+	width: 8%;
+	height: 55%;
+	font-size: 2.5rem;
+	text-align: center;
+	float: right;
+	margin: 5% 10% 5% auto;
+	font-family: 华文彩云;
+	text-shadow: 0.25rem 0.25rem 0.5rem #3E3E3E;
+	/*border: 1px solid #000;*/
+}
+#message_box{
+	width: 95%;
+	height: 10%;
+	float: right;
+	margin: 5% 0 5% 5%;
+	border: 1px solid #000;
+	border-radius: 1rem;
+    -moz-border-radius: 1rem; /* Old Firefox */
+}
+#message{
+	font-size: 1.5rem;
+	text-align: center;
+	margin-top: 1%;
+}
+button#save,#read,#new{
+	width: 24%;
+	height: 60%;
+	float: right;
+	margin: 3% 3%;
+	font-size: 1.5rem;
+	text-align: center;
+}

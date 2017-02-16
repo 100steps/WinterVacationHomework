@@ -1,0 +1,31 @@
+﻿<% include header.ejs %>
+<div class="page-header">
+    <h1 align="center">Please enter your information</h1>
+</div>
+<form class="form-horizontal" method="post">
+<div class="container">
+    <div class="form-group col-xs-12">
+        <label for="Account number" class="logintext">Username</label>
+        <input class="form-control" id="username" type="text" name="username"></input>
+    </div>
+    <label for="password" class="logintext">Password</label>
+    <div class="form-group col-xs-12">
+        <input class="form-control" id="password" type="password" name="password"></input>
+    </div>
+    <div class="form-group col-xs-12">
+        <label for="apassword" class="logintext">Password</label>
+        <input class="form-control" id="apassword" type="password" name="apassword"></input>
+    </div>
+    <div class="form-group col-xs-12">
+        <label for="Email" class="logintext">Email</label>
+        <input class="form-control" value="" type="text" name="email"></input>
+    </div>
+</div>
+<div align="center">
+    <div class="btn-group btn-group-lg" >
+        <button type="submit" class="btn btn-default" id="register">register</button>
+    </div>
+</div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</form>
+<% include footer.ejs %>

@@ -1,0 +1,23 @@
+﻿<% include header.ejs %>
+<div class="page-header">
+    <h1 align="center">POST<br/></h1>
+</div>
+
+<form class="form-horizontal" method="post">
+<div class="container">
+        <div class="form-group col-xs-12">
+            <label for="post-title" class="logintext">Title</label><br/>
+            <input class="form-control" type="text" name="title"></input>
+            <br/>
+            <label for="post-introduce" class="logintext">introduce</label><br/>
+            <input class="form-control" type="text" name="introduce"></input>
+            <br/>
+            <label for="post-article" class="logintext">Article</label><br/>
+            <textarea class="form-control" name="post" type="text" rows="30"></textarea>
+            <br/>
+            <button type="submit" class="btn btn-default" id="post">POST</button>
+        </div>
+    </div>
+</form>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<% include footer.ejs %>

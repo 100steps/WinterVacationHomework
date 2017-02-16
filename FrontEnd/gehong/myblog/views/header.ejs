@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/mycss.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand">Myblog</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <% if(!user) {%>
+                    <li><a href="/login">Login</a></li>
+                    <% } else {%>
+                    <% if(user.name=='admin'){ %>
+                    <li><a href="/post">Post</a> </li>
+                    <% } %>
+                    <li><a href="/backstageH">Backstage</a> </li>
+                    <li><a href="/logout">Logout</a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron" style="background-image: url(/images/background1.jpg); background-repeat: no-repeat">
+    <div class="container">
+        <h1 align="center" id="screen">Gareth's BLOG</h1>
+        <p align="center" id="head">Built  with  nodejs</p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    </div>
+</div>
+
+
+<div id="container" class="container">
+    <% if (locals.success) { %>
+    <div class="alert alert-success">
+        <%= locals.success %>
+    </div>
+    <% } %>
+    <% if (locals.error) { %>
+    <div class="alert alert-danger">
+        <%= locals.error %>
+    </div>
+    <% } %>
+</div>
+
+<% include sidebar.ejs%>
+

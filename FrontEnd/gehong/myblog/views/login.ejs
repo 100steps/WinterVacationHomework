@@ -1,0 +1,25 @@
+﻿<% include header.ejs %>
+<div class="page-header">
+    <h1 align="center">Please enter your information</h1>
+</div>
+<form class="form-horizontal" method="post">
+    <div class="container">
+        <div class="form-group col-xs-12">
+            <label for="Account number" class="logintext">Username</label>
+            <input class="form-control" value="" type="text" name="username"></input>
+        </div>
+        <div class="form-group col-xs-12">
+            <label for="Password" class="logintext">Password</label>
+            <input class="form-control" value="" type="password" name="password"></input>
+        </div>
+    </div>
+    <div align="center">
+        <div class="btn-group btn-group-lg" >
+            <button type="submit" class="btn btn-default" id="login">login</button>
+            <a class="btn btn-default" href="register">register</a>
+        </div>
+    </div>
+</form>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<% include footer.ejs %>

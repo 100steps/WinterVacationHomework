@@ -1,0 +1,80 @@
+header {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#myCanvas2 {
+    display: block;
+    margin: auto;
+}
+#myTime {
+    margin: auto;
+}
+@media screen and (min-width: 740px) {
+    .container {
+        margin: 50px auto;
+        width: 682px;
+    }
+    #myCanvas2 {
+        display: block;
+        margin: auto;
+    }
+    .myMenu,
+    #myCanvas {
+        float: left;
+        background-color: burlywood;
+        height: 482px;
+    }
+    #myCanvas {
+        width: 480px;
+        height: 480px;
+    }
+    #time {
+        width: 200px;
+        height: 120px;
+    }
+    #turn {
+        width: 200px;
+        height: 120px;
+    }
+
+    button {
+        display: block;
+        margin: 25px auto;
+        height: 50px;
+        width: 100px;
+    }
+}
+@media screen and (max-width:740px){
+    .container{
+        width: 100%;
+    }
+    #myCanvas {
+        width: 100%;
+    }
+    .myMenu{
+        height: 120px;
+        width: 100%;
+        background-color: chocolate;
+    }
+    #time,
+    #turn
+    {
+        float: left;
+        width: 25%;
+        height: 60px;
+    }
+    #btn {
+        float: left;
+        width: 50%;
+    }
+    button {
+        display: block;
+        margin:5px 5%;
+        float: left;
+        height: 50px;
+        width: 15%;
+    }
+
+}

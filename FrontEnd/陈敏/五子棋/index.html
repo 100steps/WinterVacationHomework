@@ -3,10 +3,21 @@
 <head lang="en">
         <meta charset="UTF-8">   
         <title>练习</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-        <canvas id="myCanvas" width="480" height="480" style="background-color:rgb(213,176,146);border:1px solid #000000"></canvas>
-        <button id="save" onclick="save()">save</button>
+    <div class="container">
+        <header>五子棋</header>
+            <canvas id="myCanvas" width="480" height="480" style="background-color:rgb(213,176,146);border:1px solid #000000"></canvas>
+            <div class="myMenu">
+                    <div id="time"><p>已用时：</p><div id="myTime"></div></div>
+                <div id="turn"><p>当前落子</p><canvas id="myCanvas2" height="50" width="50"></canvas></div>
+                    <div class="btn">
+                            <button id="save" onclick="save()">保存</button>
+                            <button id="read" onclick="read()">读取</button>
+                    </div>
+            </div>
+    </div>
         <script src="js/myJs.js"></script>
 
 </body>

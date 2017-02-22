@@ -1,0 +1,12 @@
+<dl class="function" id="divTags">
+    <dt class="function_t">按标签浏览</dt>
+    <dd class="function_c">
+        <ul>
+            <li class="tag-name tag-name-size-2">
+                {volist name="tags" id='ta'}
+                <a href="{:url('Tags/index',array('keyword'=>$ta.title))}">{$ta.title}<span class="tag-count"> (18)</span></a>
+                {/volist}
+            </li>
+        </ul>
+    </dd>
+</dl>

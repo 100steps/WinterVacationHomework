@@ -1,0 +1,7 @@
+<div id="header">
+    <a class="left" href="{:url('Index/index') }">首页</a>
+    <a class="left" href="{:url('Index/Index/index') }">网站首页</a>
+    <a class="right" onclick="return confirm('是否退出')"  href="{:url('Log/logout')}">退出</a>
+    <a class="right" href="{:url('User/edit',array('id'=>session('id')))}">修改密码</a>
+    <a class="right" href=""><?php echo session('username') ?></a>
+</div>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<script type="text/javascript" src="__PUBLIC__/static/Admin/uedit/ueditor.config.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/Admin/uedit/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/Admin/uedit/lang/zh-cn/zh-cn.js"></script>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><a href="{:url('Article/index')}">文章管理</a>>
+            <span>添加文章
+        </span>
+        </div>
+        <form action="{:url('Article/edit')}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{$article.id}">
+            <table class="add" border="1"  >
+                <tr>
+                    <th>
+                        <i class="require-red">* </i>标题：
+                    </th>
+                    <td>
+                        <input class="text" type="text" name="title" value="{$article.title}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        关键词：
+                    </th>
+                    <td>
+                        <input class="text" type="text" name="keyword" value="{$article.keyword}">
+                  </td>
+                </tr>
+                <tr>
+                    <th>
+                        描述：
+                    </th>
+                    <td>
+                        <textarea class="textarea_mini" name="desc" rows="5" cols="30">{$article.desc}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        所属栏目：
+                    </th>
+                    <td>
+                        <select name="cateid">
+                            {volist name="cateres" id="vo"}
+                            <option value="{$vo.id}" {if condition="$vo.id eq $article.cateid"}selected{/if}>{$vo.catename}</option>
+                            {/volist}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        略缩图：
+                    </th>
+                    <td>
+                        {if condition="$article.pic"}
+                        <img src="__PUBLIC__/{$article.pic}" height="50px">
+                        {else}
+                        暂无
+                        {/if}
+                        <input type="file" name="pic" value="预览">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        内容：
+                    </th>
+                    <td>
+                        <textarea class="textarea" name="content" rows="10" cols="30" id="edit">{$article.content}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <td>
+                        <input class="submit" type="submit" value="提交">
+                        <input class="return" onclick="history.go(-1)" value="返回" type="button">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    UE.getEditor('edit',{initialFrameWidth:null,initialFrameHeight:600,});
+</script>
+</body>
+</html>

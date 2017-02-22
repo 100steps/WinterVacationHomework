@@ -1,0 +1,14 @@
+<dl class="function" id="self">
+    <dt class="function_t">
+        <a href="{:url('User/index',array('id'=> session('id')))}" class="self"><?php echo session('name') ?></a>
+        <a href="{:url('User/logout')}" class="logout" onclick="return confirm('是否退出')" >退出</a>
+    </dt>
+    <dd class="function_c">
+        <div>
+            <div style="text-align: center">
+                    <img src="__PUBLIC__<?php echo session('pic') ?>" class="head">
+                    <p><?php echo session('say') ?></p>
+            </div>
+        </div>
+    </dd>
+</dl>

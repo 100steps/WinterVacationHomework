@@ -1,0 +1,16 @@
+<dl class="function" id="divComments">
+    <dt class="function_t">最新留言</dt>
+    <dd class="function_c">
+        <ul>
+            {volist name='massage' id='vb'}
+            <li style="text-overflow:ellipsis;">
+                {if condition="$vb.modu eq 0"}
+                <a href="{:url('Lst/reply',array('cate'=>$vb.modu))}#cmt1{$vb.id}" title="{$vb.time|date='Y年m月d日 h:i:s',###} post by {$vb.username}">{$vb.content}</a>
+                {else/}
+                <a href="{:url('Article/index',array('articleid'=>$vb.modu))}#cmt1{$vb.id}" title="{$vb.time|date='Y年m月d日 h:i:s',###} post by {$vb.username}">{$vb.content}</a>
+                {/if}
+            </li>
+            {/volist}
+        </ul>
+    </dd>
+</dl>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><a href="{:url('Link/index')}">文章管理</a>>
+            <span>添加文章
+        </span>
+        </div>
+        <form action="{:url('Link/edit')}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{$link.id}">
+            <table class="add" border="1"  >
+                <tr>
+                    <th>
+                        <i class="require-red">* </i>标题：
+                    </th>
+                    <td>
+                        <input class="text" type="text" name="title" value="{$link.title}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        描述：
+                    </th>
+                    <td>
+                        <textarea class="textarea_mini" name="desc" rows="5" cols="30" >{$link.desc}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        url：
+                    </th>
+                    <td>
+                        <input class="text" type="text" name="url" value="{$link.url}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <td>
+                        <input class="submit" type="submit" value="提交">
+                        <input class="return" onclick="history.go(-1)" value="返回" type="button">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
+</div>
+</body>
+</html>

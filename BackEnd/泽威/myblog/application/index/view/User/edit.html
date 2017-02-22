@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" rev="stylesheet" href="__PUBLIC__/static/Index/style/style.css" type="text/css" media="screen" />
+    <meta charset="UTF-8">
+    <title>小家</title>
+</head>
+<body style="background-size: cover;background-repeat: no-repeat;background:#f9f9f9;background-size:cover;background:url('__PUBLIC__/{$user.bkg}'); ">
+<div class="header">
+    <a href="{:url('Index/index')}">主页</a>
+    <a href="{:url('User/index',array('id'=> session('id')))}">小家</a>
+    <a href="{:url('User/logout')}" onclick="return confirm('是否退出')">退出</a>
+</div>
+<div id="container">
+    <h1>修改信息</h1>
+    <div class="border">
+        <div class="inform">
+            <form action="" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th>
+                        头像：
+                    </th>
+                    <td>
+                        <img src="__PUBLIC__/{$user.pic}">
+                        <input type="file" name="pic" style="float: right" >
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        背景图：
+                    </th>
+                    <td>
+                        <input type="file" name="bkg" style="float: right" >
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        用户名：
+                    </th>
+                    <td>
+                        {$user.name}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        密码：
+                    </th>
+                    <td>
+                        <input type="text" name="password" class="text" ><span><i style="color: red">* </i>不填则不修改</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        QQ：
+                    </th>
+                    <td>
+                        <input type="text" name="qq" value="{$user.qq}" class="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        签名：
+                    </th>
+                    <td>
+                        <input type="text" name="say" value="{$user.say}" class="text">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                    </th>
+                    <td>
+                        <input class="submit" type="submit" value="提交">
+                        <input class="return" onclick="history.go(-1)" value="返回" type="button">
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

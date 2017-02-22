@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><a href="{:url('Massage/index')}">留言管理</a>>
+            <span>评论留言</span>
+        </div>
+        <div id="search">
+        </div>
+        <div id="result">
+            <form>
+                <div id="result_list">
+                    <div class="result_list">
+                        <a href=""><i class="icon-font"></i>批量删除</a>
+                        <a href=""><i class="icon-font"></i>更新排序</a>
+                        <a href="" onclick="history.go(-1)"><i class="icon-font"></i>返回上一层</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <table  border="1"  id="result_lst">
+                        <tr>
+                            <th width="50px" >
+                                ID
+                            </th>
+                            <th >
+                                用户名
+                            </th>
+                            <th >
+                                回复内容
+                            </th>
+                            <th width="80px">
+                                时间
+                            </th>
+                            <th width="80px">
+                                操作
+                            </th>
+                        </tr>
+                        {volist name="masgres" id="vo"}
+                        <tr>
+                            <td>
+                                {$vo.id}
+                            </td>
+                            <td>
+                                {$vo.username}
+                            </td>
+                            <td>
+                                <a href="{:url('Massage/To_masg_two',array('id'=>$vo.id))}">{$vo.content}</a>
+                            </td>
+                            <td>
+                                {$vo.time|date="Y-m-d",###}
+                            </td>
+                            <td>
+                                <a href="{:url('Massage/reply',array('id'=>$vo.id , 'first'=>'0'))}" >回复</a>
+                                <a onclick="return confirm('是否要删除该栏目')" href="{:url('Massage/del',array('tid'=>$vo.id))}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                    <div  class="pagelist">
+                        {$masgres->render()}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

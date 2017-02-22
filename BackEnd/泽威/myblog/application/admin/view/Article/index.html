@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><span>文章管理</span>
+        </div>
+        <div id="search">
+            <form action="" method="post">
+                <span class="search">关键词：<input class="search_text" type="text" name="keyword" placeholder="关键字">
+                    <input
+                            class="search_bot" type="submit" value="搜索"></span>
+            </form>
+        </div>
+        <div id="result">
+            <form>
+                <div id="result_list">
+                    <div class="result_list">
+                        <a href="{:url('Article/add')}"><i class="icon-font"></i>新增文章</a>
+                        <a href=""><i class="icon-font"></i>批量删除</a>
+                        <a href=""><i class="icon-font"></i>更新排序</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <table  border="1"  id="result_lst">
+                        <tr>
+                            <th width="50px" >
+                                ID
+                            </th>
+                            <th >
+                                文章标题
+                            </th>
+                            <th >
+                                略缩图
+                            </th>
+                            <th >
+                                所属栏目
+                            </th>
+                            <th>
+                                发布时间
+                            </th>
+                            <th >
+                               点击量
+                            </th>
+                            <th width="80px">
+                                操作
+                            </th>
+                        </tr>
+                        {volist name="articleres" id="vo"}
+                        <tr>
+                            <td>
+                                {$vo.id}
+                            </td>
+                            <td>
+                                {$vo.title}
+                            </td>
+                            <td>
+                                {if condition="$vo.pic"}
+                                <img src="__PUBLIC__/{$vo.pic}" height="50px">
+                                {else}
+                                暂无
+                                {/if}
+                            </td>
+                            <td>
+                                {$vo.catename}
+                            </td>
+                            <td>
+                                {$vo.time|date="Y-m-d",###}
+                            </td>
+                            <td>
+                                {$vo.click}
+                            </td>
+                            <td>
+                                <a href="{:url('Article/edit',array('id'=>$vo.id))}">修改</a>
+                                <a onclick="return confirm('是否要删除该栏目')" href="{:url('Article/del',array('id'=>$vo.id))}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                    <div  class="pagelist">
+                        {$articleres->render()}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

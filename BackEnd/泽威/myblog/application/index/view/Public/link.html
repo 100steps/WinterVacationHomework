@@ -1,0 +1,12 @@
+<dl class="function" id="divLinkage">
+    <dt class="function_t">友情链接</dt>
+    <dd class="function_c">
+        <ul>
+            {volist name="link" id='vv'}
+            <li>
+                <a href="{$vv.url}" target="_blank">{$vv.title}</a>
+            </li>
+            {/volist}
+        </ul>
+    </dd>
+</dl>

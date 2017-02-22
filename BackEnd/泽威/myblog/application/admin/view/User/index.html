@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><span>管理员</span>
+        </div>
+        <div id="search">
+            <form action="" method="post">
+                <span class="search">关键词：<input class="search_text" type="text" name="keyword" placeholder="关键字">
+                    <input
+                            class="search_bot" type="submit" value="搜索"></span>
+            </form>
+        </div>
+        <div id="result">
+            <form>
+                <div id="result_list">
+                    <div class="result_list">
+                        <a href="{:url('User/add')}"><i class="icon-font"></i>新增管理员</a>
+                        <a href=""><i class="icon-font"></i>批量删除</a>
+                        <a href=""><i class="icon-font"></i>更新排序</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <table  border="1"  id="result_lst">
+                        <tr>
+                            <th width="50px" >
+                                ID
+                            </th>
+                            <th >
+                                用户名
+                            </th>
+                            <th width="80px">
+                                操作
+                            </th>
+                        </tr>
+                        {volist name="userres" id="vo"}
+                        <tr>
+                            <td>
+                                {$vo.id}
+                            </td>
+                            <td>
+                                {$vo.username}
+                            </td>
+                            <td>
+                                <a href="{:url('User/edit',array('id'=>$vo.id))}">修改</a>
+                                {if condition="$vo.id neq 1"}
+                                    <a onclick="return confirm('是否要删除该栏目')" href="{:url('User/del',array('id'=>$vo.id))}">删除</a>
+                                {/if}
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                    <div  class="pagelist">
+                        {$userres->render()}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

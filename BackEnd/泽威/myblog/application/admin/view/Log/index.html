@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客</title>
+</head>
+<body style="background:#f9f9f9">
+<div id="ad_container">
+    <h1>后台登录</h1>
+    <div class="ad_border">
+        <div class="ad_login">
+            <form action="{:url('Log/index')}" method="post">
+                <ul class="ad_item">
+                    <li>
+                        <label for="username">用户名：</label>
+                        <input class="ad_text" name="username" type="text" id="username">
+                    </li>
+                    <li>
+                        <label for="password">密码：</label>
+                        <input class="ad_text" name="password" type="password" id="password">
+                    </li>
+                    <li><input type="submit" value="提交" class="ad_sub"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

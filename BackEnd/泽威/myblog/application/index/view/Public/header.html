@@ -1,0 +1,15 @@
+<div id="divTop">
+    <h1 id="BlogTitle"><a href=""><img src="__PUBLIC__/static/Index/images/55.png" alt="梦的发源地" onMouseover="shake(this,'onmouseout')" /></a></h1>
+</div>
+<div id="divNavBar">
+    <ul>
+        <li><a href="{:url('Index/index')}">首页</a></li>
+        {volist name="cateres" id='vo'}
+        {if condition="$vo.type neq 0"}
+        <li><a href="{:url('Lst/reply',array('cate'=>$vo.id))}" >{$vo.catename}</a></li>
+        {else}
+        <li><a href="{:url('Lst/index',array('cateid'=>$vo.id))}" >{$vo.catename}</a></li>
+        {/if}
+        {/volist}
+    </ul>
+</div>

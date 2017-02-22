@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top_wrap"></div>
+        <div id="quickly_wrap">
+            <h1>快捷操作</h1>
+            <a href="{:url('Cate/add')}"><i class="icon-font">&#xe001;  </i>新增栏目</a>
+            <a href="{:url('Article/add')}"><i class="icon-font">&#xe005;  </i>新增文章</a>
+            <a href="{:url('Link/add')}"><i class="icon-font">&#xe048;  </i>新增友情链接</a>
+            <a href="{:url('User/add')}"><i class="icon-font">&#xe041;  </i>新增管理员账户</a>
+        </div>
+        <div id="result_wrap">
+            <h1>系统基本信息</h1>
+            <table>
+                <tr>
+                    <th>操作系统</th>
+                    <td><?php echo PHP_OS; ?></td>
+                </tr>
+                <tr>
+                    <th>运行环境</th>
+                    <td><?php echo $_SERVER ['SERVER_SOFTWARE']; ?></td>
+                </tr>
+                <tr>
+                    <th>最大上传</th>
+                    <td><?php echo get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许上传附件";?></td>
+                </tr>
+                <tr>
+                    <th>运行内存</th>
+                    <td><?php echo get_cfg_var ("memory_limit")?get_cfg_var("memory_limit"):"无";?></td>
+                </tr>
+                <tr>
+                    <th>域名</th>
+                    <td><?php echo $_SERVER['SERVER_NAME']; ?></td>
+                </tr>
+                <tr>
+                    <th>服务器时间</th>
+                    <td><?php date_default_timezone_set ('PRC');echo date("Y-m-d G:i:s"); ?></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

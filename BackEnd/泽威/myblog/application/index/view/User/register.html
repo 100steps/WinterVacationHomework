@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客注册</title>
+</head>
+<body style="background:#f9f9f9">
+<div id="ad_container">
+    <h1>注册</h1>
+    <div class="ad_border">
+        <div class="ad_login">
+            <form action="{:url('User/register')}" method="post">
+                <ul class="ad_item">
+                    <li>
+                        <label for="username">用户名：</label>
+                        <input class="ad_text" name="username" type="text" id="username">
+                    </li>
+                    <li>
+                        <label for="password">密码：</label>
+                        <input class="ad_text" name="password" type="password" id="password">
+                    </li>
+                    <li>
+                        <label for="password">校对密码：</label>
+                        <input class="ad_text" name="password1" type="password" id="password1">
+                    </li>
+                    <li><input type="submit" value="提交" class="submit" style="margin-right: 10px"><input class="return" onclick="history.go(-1)" value="返回" type="button"></li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

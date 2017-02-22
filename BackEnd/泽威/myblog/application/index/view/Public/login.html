@@ -1,0 +1,15 @@
+<dl class="function" id="login">
+    <dt class="function_t">账号登陆</dt>
+    <dd class="function_c">
+        <div>
+            <div style="padding:0.5em 0 0.5em 1em;">
+                <form method="post" action="{:url('User/index')}">
+                    <input type="text" name="name" id="name" size="12" placeholder="用户名" />
+                    <input type="password" name="password" id="password" size="12" placeholder="密码" />
+                    <input type="submit" value="登陆" class="login" />
+                    <a href="{:url('User/register')}">注册</a>
+                </form>
+            </div>
+        </div>
+    </dd>
+</dl>

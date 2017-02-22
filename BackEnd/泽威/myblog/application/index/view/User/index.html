@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" rev="stylesheet" href="__PUBLIC__/static/Index/style/style.css" type="text/css" media="screen" />
+    <meta charset="UTF-8">
+    <title>个人信息</title>
+</head>
+<body style="background-size: cover;background-repeat: no-repeat;background:#f9f9f9;background-size:cover;background:url('__PUBLIC__/{$user.bkg}'); ">
+<div class="header">
+    <a href="{:url('Index/index')}">主页</a>
+    {if condition="$user.id eq session('id')"}
+    <a href="{:url('User/edit',array('id'=> session('id')))}">修改</a>
+    {/if}
+    {if condition="session('id')"}
+    <a href="{:url('User/logout')}" onclick="return confirm('是否退出')">退出</a>
+    {/if}
+</div>
+<div id="container">
+    <h1>小家如斯</h1>
+    <div class="border">
+        <div class="inform">
+            <table >
+                <tr>
+                    <th>
+                        头像：
+                    </th>
+                    <td>
+                        <img src="__PUBLIC__/{$user.pic}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        用户名：
+                    </th>
+                    <td>
+                        {$user.name}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        QQ：
+                    </th>
+                    <td>
+                        {$user.qq}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        签名：
+                    </th>
+                    <td>
+                        {$user.say}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

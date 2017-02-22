@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Language" content="zh-CN" />
+	<title>梦的发源地</title>
+	<link rel="stylesheet" rev="stylesheet" href="__PUBLIC__/static/Index/style/style.css" type="text/css" media="screen" />
+	<link rel="shortcut icon" href="/favicon.ico" />
+	<script src="__PUBLIC__/static/Index/style/common.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/static/Index/style/c_html_js_add.js" type="text/javascript"></script>
+	<script src="__PUBLIC__/static/Index/style/custom.js" type="text/javascript"></script>
+	<link rel="alternate" type="application/rss+xml" href="__PUBLIC__/static/Index/style/feed.css" title="你我网 " />
+</head>
+<body class="single">
+<div id="divAll">
+	<div id="divPage">
+		<div id="divMiddle">
+			{include file="Public/header" /}
+			<div id="divMain">
+				<div class="post single-post cate2 auth1">
+					<div class="post-nav">
+						{if condition="$last"}
+						<a class="l" href={:url("Article/index",array('articleid'=>$last.id))} >« 上一篇</a>
+						{else}
+						<a class="l" >没有上一篇了</a>
+						{/if}
+
+						{if condition="$next"}
+						<a class="r" href={:url("Article/index",array('articleid'=>$next.id))} >下一篇 »</a>
+						{else}
+						<a class="r"  >没有下一篇了</a>
+						{/if}
+					</div>
+					<h4 class="post-date">{$article.time|date="Y年m月d日 h:i:s",###}</h4>
+					<h2 class="post-title">{$article.title}​</h2>
+					<div class="post-body"><p>{$article.desc}</p><p>{$article.content}</p></div>
+					<h5 class="post-tags">Tags: <span class="tags">
+						<?php
+							$arr=explode('，',$article['keyword']);
+							foreach($arr as $k=>$v){
+								echo "<a href=".url('Tags/index',array('keyword'=>$v)).">$v</a>&nbsp;";
+							}
+						?>
+					</h5>
+					<h6 class="post-footer">
+						发布:清风 | 分类:{$article.catename} | 浏览:<span >{$article.click}</span>
+						<script type="text/javascript">AddViewCount(75)</script>
+						<br />
+						<!-- AD BEGIN -->
+						<br />
+						<div style="width:660px;" align="center">
+
+						</div>
+						<!-- AD END -->
+					</h6>
+				</div>
+				<ul class="msg mutuality">
+					<li class="tbname">相关文章:</li>
+					<li class="msgarticle">
+						{volist name='related' id='vc'}
+						<p><a  href={:url('Article/index',array('articleid'=>$vc.0))}>{$vc.1}</a>&nbsp;&nbsp;({$vc.2|date="Y年m月d日 h:i:s",###})</p>
+						{/volist}
+					</li>
+				</ul>
+				<ul  class="msg msghead">
+					<li class="tbname">留言列表:</li>
+				</ul>
+				<ins style="display:none;" id="AjaxCommentBegin"></ins>
+				{volist name="massage" id="mm"}
+				<ul class="msg" id="cmt1{$mm.id}">
+					<li class="msgname"><img class="avatar" src="__PUBLIC__/{$mm.pic}" alt="" width="32"/>&nbsp;<span class="commentname">{if condition="$mm.userid"}<a href="{:url('User/index',array('id'=> $mm.userid))}" rel="nofollow" target="_blank">{$mm.username}</a>{else}<span>{$mm.username}</span>{/if}</span><br/><small>&nbsp;发布于&nbsp;{$mm.time|date="Y年m月d日 h:i:s",###}&nbsp;&nbsp;<span class="revertcomment"><a href="#comment" onclick="save('{$mm.id}','{$mm.id}','1')">回复该留言</a></span></small></li>
+					<li class="msgarticle">{$mm.content}<!--rev1365-->
+						{volist name="to_masg" id="tm"}
+						{if condition="$tm.ini_id eq $mm.id"}
+						<ul class="msg" id="cmt2{$mm.id}">
+							<li class="msgname"><img class="avatar" src="__PUBLIC__/{$tm.pic}" alt="" width="32"/>&nbsp;<span class="commentname">{volist name="to_masg" id='nn'}
+									{if condition="!$tm.first && ($nn.id eq $tm.toid) "}
+									<span class="name2"  >
+										@{$nn.username}
+									</span>
+									{/if}
+									{/volist}{if condition="$tm.userid"}<a href="{:url('User/index',array('id'=>$tm.userid))}" rel="nofollow" target="_blank">{$tm.username}</a>{else}<span>{$tm.username}</span>{/if}</span><br/><small>&nbsp;{$tm.time|date="Y年m月d日 h:i:s",###}&nbsp;&nbsp;&nbsp;<span class="revertcomment"><a href="#comment" onclick="RevertComment('{$mm.id}','{$tm.id}','0')">回复该留言</a></span></small></li>
+							<li class="msgarticle">{$tm.content}<!--rev1366--><a style="display:none;" id="AjaxCommentEnd1366"></a></li>
+						</ul>
+						{/if}
+						{/volist}
+						<a style="display:none;" id="AjaxCommentEnd1{$mm.id}"></a></li>
+				</ul>
+				{/volist}
+				<ins style="display:none;" id="AjaxCommentEnd"></ins>
+
+				<div class="post" id="divCommentPost">
+					<p class="posttop"><a name="comment">发表留言:</a><small><a rel="nofollow" id="cancel-reply" href="#divCommentPost" style="display:none;">取消回复</a></small></p>
+					<form id="frmSumbit" target="_self" method="post" action="{:url('Article/reply')}" >
+						<input type="hidden" name="modu" id="modu" value={$article.id} />
+						<input type="hidden" name="ini_id" id="ini_id" value='0' />
+						<input type="hidden" name="first" id="first" value='0' />
+						<input type="hidden" name="toid" id="toid" value='0' />
+						<p><input type="text" value="<?php echo session('name'); ?>" name="name" id="inpName" class="text" value="" size="28" tabindex="1" /> <label for="inpName">名称（必填）</label></p>
+						<p style="height:30px">
+							<input  type="text"  id="inputCode"  size="28" tabindex="4"  class="text"  /> <label for="inputCode"> 验证（必填）</label>
+						<div  class="code" id="checkCode" onclick="createCode()"  ></div>
+						</p>
+						<p><label for="txaArticle">正文（必填）(留言最长字数:1000)</label></p>
+						<p><textarea name="content" id="txaArticle" onchange="GetActiveText(this.id);" onclick="GetActiveText(this.id);" onfocus="GetActiveText(this.id);" class="text" cols="50" rows="4" tabindex="5" ></textarea></p>
+						<p><input onclick="validateCode()" name="btnSumbit" type="submit" tabindex="6" value="提交" class="button"   />
+							<script language="JavaScript" type="text/javascript">objActive="txaArticle";ExportUbbFrame();</script>
+
+					</form>
+					<p class="postbottom">◎欢迎参与讨论，请在这里发表您的看法、交流您的观点。</p>
+					<script language="JavaScript" type="text/javascript">LoadRememberInfo();</script>
+				</div>
+			</div>
+			<div id="divSidebar">
+				{if condition="session('name')"}
+				{include file="Public/self" /}
+				{else}
+				{include file="Public/login" /}
+				{/if}
+				{include file="Public/search" /}
+				{include file="Public/massage" /}
+				{include file="Public/share" /}
+
+			</div>
+			{include file="Public/bottom" /}
+		</div>
+	</div>
+</div>
+<!-- dd BEGIN -->
+<script language="JavaScript1.2">
+    window.onload=function(){
+        createCode();
+    }
+    var typ=["marginTop","marginLeft"],rangeN=10,timeout=0;
+    function shake(o,end){
+        var range=Math.floor(Math.random()*rangeN);
+        var typN=Math.floor(Math.random()*typ.length);
+        o["style"][typ[typN]]=""+range+"px";
+        var shakeTimer=setTimeout(function(){shake(o,end)},timeout);
+        o[end]=function(){clearTimeout(shakeTimer)};
+    }
+    function save(i,u,o) {
+        $("#ini_id").val(i);
+        $("#toid").val(u);
+        $("#first").val(o);
+        var frm=$('#divCommentPost'),cancel=$("#cancel-reply"),temp = $('#temp-frm');
+
+
+        var div = document.createElement('div');
+        div.id = 'temp-frm';
+        div.style.display = 'none';
+        frm.before(div);
+
+
+        $('#AjaxCommentEnd'+i).before(frm);
+
+        frm.addClass("reply-frm");
+
+        cancel.show();
+        cancel.click(function(){
+            $("#ini_id").val(0);
+            var temp = $('#temp-frm'), frm=$('#divCommentPost');
+            if ( ! temp.length || ! frm.length )return;
+            temp.before(frm);
+            temp.remove();
+            $(this).hide();
+            frm.removeClass("reply-frm");
+            ReComment_CallBack();
+            return false;
+        });
+        try { $('#txaArticle').focus(); }
+        catch(e) {}
+        ReComment_CallBack();
+        return false;
+    }
+    var code;
+    function createCode()
+    {
+        code = "";
+        var codeLength = 4; //验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+        for(var i = 0; i < codeLength; i++)
+        {
+            var charNum = Math.floor(Math.random() * 52);
+            code += codeChars[charNum];
+        }
+        if(checkCode)
+        {
+            checkCode.className = "code";
+            checkCode.innerHTML = code;
+        }
+    }
+    function validateCode()
+    {
+        var inputCode=document.getElementById("inputCode").value;
+        if(inputCode.length <= 0)
+        {
+            alert("请输入验证码！");
+            event.returnValue = false;
+
+        }
+        else if(inputCode.toUpperCase() != code.toUpperCase())
+        {
+            alert("验证码输入有误！");
+            createCode();
+            event.returnValue = false;
+
+        }
+        else
+        {
+
+        }
+    }
+
+</script>
+<!-- dd END -->
+</body>
+</html>
+<!-- 2016-6-23 1:59:46 -->

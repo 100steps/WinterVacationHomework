@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/static/Admin/style/admin.css">
+    <meta charset="UTF-8">
+    <title>博客后台管理</title>
+</head>
+<body>
+{include file='Public/header' /}
+<div id="container">
+    {include file='Public/left' /}
+    <div id="content">
+        <div id="top">
+            <a href=" {:url('Index/index')}"><i class="icon-font">  </i>首页</a>><span>留言管理</span>
+        </div>
+        <div id="search">
+            <form action="" method="post">
+                <span class="search">关键词：<input class="search_text" type="text" name="keyword" placeholder="关键字">
+                    <input class="search_bot" type="submit" value="搜索"></span>
+            </form>
+        </div>
+        <div id="result">
+            <form>
+                <div id="result_list">
+                    <div class="result_list">
+                        <a href=""><i class="icon-font"></i>批量删除</a>
+                        <a href=""><i class="icon-font"></i>更新排序</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <table  border="1"  id="result_lst">
+                        <tr>
+                            <th width="50px" >
+                                ID
+                            </th>
+                            <th >
+                                用户名
+                            </th>
+                            <th >
+                                留言内容
+                            </th>
+                            <th >
+                                所属模块
+                            </th>
+                            <th width="80px">
+                                时间
+                            </th>
+                            <th width="80px">
+                                操作
+                            </th>
+                        </tr>
+                        {volist name="masgres" id="vo"}
+                        <tr>
+                            <td>
+                                {$vo.id}
+                            </td>
+                            <td>
+                                {$vo.username}
+                            </td>
+                            <td>
+                                <a href="{:url('Massage/To_masg_one',array('id'=>$vo.id))}">{$vo.content}</a>
+                            </td>
+                            <td>
+                                {if condition="$vo.modu eq 0"}
+                                留言板
+                                {else}
+                                {$vo.title}
+                                {/if}
+                            </td>
+                            <td>
+                                {$vo.time|date="Y-m-d",###}
+                            </td>
+                            <td>
+                                <a href="{:url('Massage/reply',array('id'=>$vo.id , 'first'=>'1'))}" >回复</a>
+                                <a onclick="return confirm('是否要删除该栏目')" href="{:url('Massage/del',array('id'=>$vo.id))}">删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </table>
+                    <div  class="pagelist">
+                        {$masgres->render()}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

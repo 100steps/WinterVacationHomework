@@ -26,8 +26,8 @@ static XMPPStreamManager *manager;
     if (_xmppStream == nil){
         _xmppStream = [[XMPPStream alloc]init];
         //设置属性
-        _xmppStream.hostName = @"heihei.imwork.net";//heihei.imwork.net
-        _xmppStream.hostPort = 23771;//23771
+        _xmppStream.hostName = @"182.254.232.79";//heihei.imwork.net
+        _xmppStream.hostPort = 5222;//23771
         //设置多播代理
         [_xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     }

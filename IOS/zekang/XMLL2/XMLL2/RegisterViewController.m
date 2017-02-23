@@ -8,6 +8,7 @@
 #import "RegisterViewController.h"
 #import "RegisterView.h"
 #import "XMPPStreamManager.h"
+#import "registerAndLogin.h"
 @interface RegisterViewController ()<RegisterViewDelegate>
 @property (nonatomic,strong)UIActivityIndicatorView *indicator;
 @property (nonatomic,weak)NSTimer *timer;
@@ -27,11 +28,11 @@
     if (_indicator == nil){
     _indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     _indicator.color = [UIColor blueColor];
-    _indicator.hidden = NO;
     _indicator.hidesWhenStopped = YES;
     _indicator.center = CGPointMake(160, 260);
     [self.view addSubview:_indicator];
     }
+    _indicator.hidden = NO;
     return _indicator;
 }
 - (void)viewDidLoad {
@@ -41,36 +42,28 @@
     [_registerView.registerBtn setTitle:self.navigationItem.title forState:UIControlStateNormal];
     
     //添加按钮的响应事件
-    [_registerView.registerBtn addTarget:self action:@selector(startRegister) forControlEvents:UIControlEventTouchUpInside];
+    [_registerView.registerBtn addTarget:self action:@selector(startRegister2) forControlEvents:UIControlEventTouchUpInside];
+    
+    //KVO模式，添加观察者
+    [[registerAndLogin shared] addObserver:self forKeyPath:@"result" options:NSKeyValueObservingOptionNew context:nil];
+    [[registerAndLogin shared] addObserver:self forKeyPath:@"connectError" options:NSKeyValueObservingOptionNew context:nil];
 }
 //-------------------------------------------------------//
-#pragma mark -- 提交事件 核心事件
+#pragma mark -- 提交事件 核心事件 要用后端接口，这个就不调用了
 - (void)startRegister{
     //在每次开始登录或者注册前都要断开连接一下,因为连接成功后的一个代理方法只会调用一次
     [[XMPPStreamManager sharedManager].xmppStream disconnect];
     XMPPJID *myJID =  [XMPPJID jidWithUser:_registerView.userName.text domain:@"192.168.1.102" resource:nil];
     
     //空格字符检测
-    NSRange range = [_registerView.passWord.text rangeOfString:@" "];
-    NSRange range2 = [_registerView.userName.text rangeOfString:@" "];
-    if (range.location != NSNotFound || range2.location != NSNotFound){
-    UIAlertController *controller = [UIAlertController  alertControllerWithTitle:@"提交失败" message:@"含有空格字符" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil];
-    [controller addAction:action];
-    [self presentViewController:controller animated:YES completion:nil];
-        return;}
+    if([self spaceCheck:_registerView.passWord.text] || [self spaceCheck:_registerView.userName.text] ){ return; }
     
     //如果是注册，则进行密码相同检验
     if ([self.navigationItem.title isEqualToString:@"注册"]){
-    if (_registerView.passWord.text != _registerView.passWordAg.text){
-        UIAlertController *controller = [UIAlertController  alertControllerWithTitle:@"提交失败" message:@"两次输入的密码不同" preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil];
-        [controller addAction:action];
-        [self presentViewController:controller animated:YES completion:nil];
-        return;
-       }
+        if (![self passwordCheck:_registerView.passWord.text andPasswordAg:_registerView.passWordAg.text]){
+            return;
+        }
     }
-    
     //无论是登录还是注册都调用这个方法
   [[XMPPStreamManager sharedManager] loginToServerWithJID:myJID andPassword:_registerView.passWord.text andTitle:self.navigationItem.title];
     
@@ -90,6 +83,78 @@
     self.navigationItem.hidesBackButton =YES;
     }
 //-------------------------------------------------------//
+#pragma mark -- 改用这个
+- (void)startRegister2{
+    //空白检测
+    if ([self spaceCheck:_registerView.passWord.text] || [self spaceCheck:_registerView.userName.text]){ return;}
+    //密码相同检测
+    if ([self.navigationItem.title isEqualToString:@"注册"]){
+        if (![self passwordCheck:_registerView.passWord.text andPasswordAg:_registerView.passWordAg.text]){
+            return;
+        }
+        [self.indicator startAnimating];
+        [[registerAndLogin shared] registerWithName:_registerView.userName.text password:_registerView.passWord.text avatar:nil];
+    }else{
+        [self.indicator startAnimating];
+        [[registerAndLogin shared] loginWithName:_registerView.userName.text password:_registerView.passWord.text];
+    }
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"result"]){
+        if ([change[NSKeyValueChangeNewKey] isEqualToString:@"false"]){
+            [self createAlertViewWithTitle:@"连接失败" andMessage:[registerAndLogin shared].reason andActionTitle1:@"我知道了" andActionTtile2:nil];
+            self.indicator.hidden = YES;
+        }else if ([change[NSKeyValueChangeNewKey] isEqualToString:@"success"]){
+            //移除指示器
+            self.indicator.hidden = YES;
+            [self.indicator removeFromSuperview];
+            
+            //保存登录成功的用户名和密码
+            NSString *path =[[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)lastObject]stringByAppendingPathComponent:@"SomeStatus.plist"];
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            [dic setObject:_registerView.userName.text forKey:@"user"];
+            [dic setObject:_registerView.passWord.text forKey:@"password"];
+            [dic setObject:@1 forKey:@"used"];
+            [dic writeToFile:path atomically:NO];
+            
+            //切换window
+            [self.view.window resignKeyWindow];
+            self.view.window.hidden = YES;
+        }
+    }else if ([keyPath isEqualToString:@"connectError"]){
+        [self createAlertViewWithTitle:@"错误" andMessage:@"请检查你的网络连接" andActionTitle1:@"嗯好滴" andActionTtile2:nil];
+        self.indicator.hidden = YES;
+    }
+}
+//空格字符检测方法
+- (BOOL)spaceCheck:(NSString *)string{
+    NSRange range = [string rangeOfString:@" "];
+    if (range.location != NSNotFound){
+        [self createAlertViewWithTitle:@"提交失败" andMessage:@"含有空格字符" andActionTitle1:@"我知道了" andActionTtile2:nil];
+        return YES;
+    }
+    return NO;
+}
+
+//两次输入密码相同检查
+- (BOOL)passwordCheck:(NSString *)password andPasswordAg:(NSString *)passwordAg{
+    if (password != passwordAg){
+        [self createAlertViewWithTitle:@"提交失败" andMessage:@"两次输入的密码不同" andActionTitle1:@"我知道了" andActionTtile2:nil];
+        return NO;
+    }
+    return YES;
+}
+- (void)createAlertViewWithTitle:(NSString *)title andMessage:(NSString *)message andActionTitle1:(NSString * _Nonnull)title1 andActionTtile2:(NSString *)title2{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:title1 style:UIAlertActionStyleDefault handler:nil];
+    [controller addAction:action1];
+    if (title2 != nil){
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:title2 style:UIAlertActionStyleDefault handler:nil];
+        [controller addAction:action2];
+    }
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 - (void)checkConnect{
     //对指示器的处理
     [self.indicator stopAnimating];
@@ -139,9 +204,11 @@
         self.navigationItem.hidesBackButton = NO;
     }
 }
+
 - (void)didReceiveNoti:(NSNotification *)noti{
     self.status = noti.userInfo[@"status"];
 }
+
 - (void)TextFieldDidChang:(RegisterView *)view{
     if (_registerView.userName.hasText && _registerView.passWord.hasText ) {
         if ([self.navigationItem.title isEqualToString:@"登录"] || _registerView.passWordAg.hasText ){
@@ -194,5 +261,9 @@
     if (_registerView.subviews.count >= 4 && [self.navigationItem.title isEqualToString:@"登录"]){
         [_registerView.passWordAg removeFromSuperview];
     }
+}
+- (void)dealloc{
+    [[registerAndLogin shared] removeObserver:self forKeyPath:@"result"];
+    [[registerAndLogin shared] removeObserver:self forKeyPath:@"connectError"];
 }
 @end

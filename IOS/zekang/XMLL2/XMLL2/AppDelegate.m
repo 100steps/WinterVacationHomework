@@ -5,6 +5,7 @@
 #import "FirstUseViewController.h"
 #import "TabBarViewController.h"
 #import "XMPPStreamManager.h"
+#import "registerAndLogin.h"
 @interface AppDelegate ()
 
 @end
@@ -33,12 +34,18 @@
         UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:firstUseVC];
         self.window2.rootViewController = navi;
         [_window2 makeKeyAndVisible];
-
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DidResignKey) name:UIWindowDidResignKeyNotification object:nil];
     }else{
+        //其实不必自动登录了。。。因为自动登录没有毛用啊好不好，又不是在即时通讯软件，要个屁登录啊，之前的账号密码保存下来就好了
+        //假装这里有自动登录
+        /*
         [[XMPPStreamManager sharedManager].xmppStream disconnect];
         XMPPJID *myJID =  [XMPPJID jidWithUser:dic[@"user"] domain:@"192.168.1.102" resource:nil];
         [[XMPPStreamManager sharedManager] loginToServerWithJID:myJID andPassword:dic[@"password"] andTitle:@"登录"];
+         */
+        
+        //dic[@"user"]
+        //dic[@"password"]
     }
 }
 - (void)DidResignKey{

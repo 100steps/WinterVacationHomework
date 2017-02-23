@@ -84,7 +84,9 @@
 - (void)viewWillAppear:(BOOL)animated{
     self.tabBarController.tabBar.hidden = NO;
     //一个紧急的补救chat好友页面出现不全的方法
+    if (self.tableView.indexPathsForVisibleRows.count <= 1){
     [self.tableView reloadData];
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section== 0) {

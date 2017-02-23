@@ -29,11 +29,11 @@ class Article extends Model
             $result=array_merge($search,$result);
         }
         foreach ($result as $k=>$v){
-            $result[$k]=implode('，',$v);
+            $result[$k]=implode('，|，',$v);
         }
         $result=array_unique($result);
         foreach ($result as $k=>$v){
-            $result[$k]=explode('，',$v);
+            $result[$k]=explode('，|，',$v);
         }
         return $result;
     }
